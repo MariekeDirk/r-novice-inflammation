@@ -1,0 +1,70 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE, echo=FALSE, eval=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# 1) Wokring with a package structure
+
+For now I created a new project and copied the `DESCRIPTION` `NAMESPACE` and `/R` folder to the main package. 
+```{r packagestructure}
+#devtools::create("r.novice.inflammation")
+```
+
+# 2) The data
+
+It is common to read your data within `data-raw/dataraw.R`. 
+* use `devtools::use_data_raw()` to create the folder (I never make these folders manually in order to prevent spelling errors)
+* Within `data-raw` I created the Rscript `dataraw.R`
+* The script contains the following information:
+
+```{r data}
+library(data.table)
+#car_data<-fread("_episodes_rmd/data/car-speeds.csv")
+#devtools::use_data(car_data)
+```
+
+Within the folder `/data` a `.rda` file is create containing the information from the `.csv` file (you could also first make some modifications to the original dataset). 
+
+# 3) The documentation
+
+The documentation of data has similarities to the documentation of function within R. 
+
+* Create a script named `data.R` within the `/R` folder
+* The script contains documentation of your dataset which looks like:
+
+```{r documentation}
+#'Car Data
+#'
+#'This dataset contains information of the color, speed and state of cars.
+#'
+#'@format A data frame with 100 rows and 3 variables
+#'\describe{
+#' \item{Color}{The color of the car. These are characters}
+#' \item{Speed}{The maximum speed of the car in m/s}
+#' \item{State}{The state where the car was made}
+#' }
+"car_data"
+
+```
+
+* use `devtoools::document()` create the documentation, within the `/man` folder a `.Rd` file is created.
+
+In order to see the documentation:
+
+* `devtools::build()`
+* `devtools::reload()`
+* ?car_data
+
