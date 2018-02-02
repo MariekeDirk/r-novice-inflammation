@@ -66,5 +66,5 @@ In order to see the documentation:
 
 * `devtools::build()`
 * `devtools::reload()`
-* ?car_data
+* `?car_data`
 
